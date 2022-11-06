@@ -1,23 +1,40 @@
 import React from "react";
-import { Skeleton } from "../components/PizzaBlock/Skeleton.jsx";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
+import {
+  setCategoryId,
+  setSortType,
+  setCurrentPage,
+} from "../redux/slices/filterSlice";
 import { Categories } from "../components/Categories.jsx";
 import { PizzaBlock } from "../components/PizzaBlock/index.jsx";
 import { Sort } from "../components/Sort.jsx";
 import { Pagination } from "../components/Pagination/index.jsx";
-import { SeacrhContext } from "../App.js";
+import { SearchContext } from "../App.js";
+import { Skeleton } from "../components/PizzaBlock/Skeleton.jsx";
 
 export const Home = () => {
-  const { searchValue } = React.useContext(SeacrhContext);
+  const sortType = useSelector((state) => state.filter.sort);
+  const categoryId = useSelector((state) => state.filter.categoryId);
+  const currentPage = useSelector((state) => state.filter.currentPage);
+  const dispatch = useDispatch();
 
+  const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [currentPage, setCurrentpage] = React.useState(1);
-  const [sortType, setSortType] = React.useState({
-    name: "алфавиту",
-    sortProperty: "title",
-  });
+
+  const onChangeCategoryId = (i) => {
+    dispatch(setCategoryId(i));
+  };
+
+  const onChangeSort = (i) => {
+    dispatch(setSortType(i));
+  };
+
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
+  };
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -27,12 +44,12 @@ export const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    fetch(
-      `https://635f8fa9ca0fe3c21a9ed29c.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sortBy}&order=${order}${search}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        setItems(json);
+    axios
+      .get(
+        `https://635f8fa9ca0fe3c21a9ed29c.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+      )
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 50);
@@ -46,15 +63,12 @@ export const Home = () => {
   return (
     <>
       <div className="content__top">
-        <Categories
-          value={categoryId}
-          onChangeCategory={(i) => setCategoryId(i)}
-        />
-        <Sort value={sortType} onChangeSort={(id) => setSortType(id)} />
+        <Categories value={categoryId} onChangeCategory={onChangeCategoryId} />
+        <Sort value={sortType} onChangeSort={onChangeSort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination onChangePage={(number) => setCurrentpage(number)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </>
   );
 };

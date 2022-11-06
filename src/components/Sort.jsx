@@ -12,8 +12,8 @@ export const Sort = ({ value, onChangeSort }) => {
     { name: "Алфавиту (от А до Я)", sortProperty: "-title" },
   ];
 
-  const onClickSortBy = (i) => {
-    onChangeSort(i);
+  const onClickSortBy = (obj) => {
+    onChangeSort(obj);
     setOpen(false);
   };
 

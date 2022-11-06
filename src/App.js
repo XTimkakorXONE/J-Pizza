@@ -7,14 +7,14 @@ import { LoadError } from "./pages/LoadError.jsx";
 import { Cart } from "./pages/Cart";
 import "./scss/app.scss";
 
-export const SeacrhContext = React.createContext("");
+export const SearchContext = React.createContext("");
 
 function App() {
   const [searchValue, setSearchValue] = React.useState("");
 
   return (
     <div className="wrapper">
-      <SeacrhContext.Provider value={{ searchValue, setSearchValue }}>
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
         <Header />
         <div className="content">
           <div className="container">
@@ -25,7 +25,7 @@ function App() {
             </Routes>
           </div>
         </div>
-      </SeacrhContext.Provider>
+      </SearchContext.Provider>
     </div>
   );
 }
