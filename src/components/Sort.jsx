@@ -1,16 +1,16 @@
 import React from "react";
 
+export const list = [
+  { name: "Популярности (от популярных)", sortProperty: "rating" },
+  { name: "Популярности (от непопулярных)", sortProperty: "-rating" },
+  { name: "Цене (от дорогих )", sortProperty: "price" },
+  { name: "Цене (от дешевых)", sortProperty: "-price" },
+  { name: "Алфавиту (от Я до А)", sortProperty: "title" },
+  { name: "Алфавиту (от А до Я)", sortProperty: "-title" },
+];
+
 export const Sort = ({ value, onChangeSort }) => {
   const [open, setOpen] = React.useState(false);
-
-  const list = [
-    { name: "Популярности (от популярных)", sortProperty: "rating" },
-    { name: "Популярности (от непопулярных)", sortProperty: "-rating" },
-    { name: "Цене (от дорогих )", sortProperty: "price" },
-    { name: "Цене (от дешевых)", sortProperty: "-price" },
-    { name: "Алфавиту (от Я до А)", sortProperty: "title" },
-    { name: "Алфавиту (от А до Я)", sortProperty: "-title" },
-  ];
 
   const onClickSortBy = (obj) => {
     onChangeSort(obj);
