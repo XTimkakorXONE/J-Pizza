@@ -10,6 +10,15 @@
     justify-content: center;
   }
 
+  .induced {
+    padding-left: 13px;
+    padding-top: 10px;
+    &:hover {
+      box-shadow: 0 0 5px 2px #d86902a2;
+      border-radius: 30px;
+    }
+  }
+
   &__image {
     width: 260px;
   }

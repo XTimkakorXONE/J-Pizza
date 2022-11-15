@@ -1,33 +1,31 @@
 import React from "react";
 import qs from "qs";
-import axios from "axios";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   setCategoryId,
   setSortType,
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { Categories } from "../components/Categories.jsx";
 import { PizzaBlock } from "../components/PizzaBlock/index.jsx";
 import { list, Sort } from "../components/Sort.jsx";
 import { Pagination } from "../components/Pagination/index.jsx";
-import { SearchContext } from "../App.js";
+
 import { Skeleton } from "../components/PizzaBlock/Skeleton.jsx";
 
 export const Home = () => {
   const navigate = useNavigate();
 
-  const sortType = useSelector((state) => state.filter.sort);
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const currentPage = useSelector((state) => state.filter.currentPage);
+  const { currentPage, categoryId, sortType, searchValue } = useSelector(
+    (state) => state.filter
+  );
+  const { items, status } = useSelector((state) => state.pizza);
 
   const dispatch = useDispatch();
-
-  const { searchValue } = React.useContext(SearchContext);
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   const isSearchRef = React.useRef(false);
   const isMounted = React.useRef(false);
@@ -44,22 +42,21 @@ export const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
-    setIsLoading(true);
-
+  const getPizzas = async () => {
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sortType.sortProperty.replace("-", "");
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
-        `https://635f8fa9ca0fe3c21a9ed29c.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+    dispatch(
+      fetchPizzas({
+        order,
+        sortBy,
+        category,
+        search,
+        currentPage,
+      })
+    );
     window.scrollTo(0, 50);
   };
 
@@ -93,7 +90,7 @@ export const Home = () => {
   }, []);
 
   React.useEffect(() => {
-    !isSearchRef.current && fetchPizzas();
+    !isSearchRef.current && getPizzas();
 
     isSearchRef.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
@@ -102,7 +99,7 @@ export const Home = () => {
     <Skeleton key={index} />
   ));
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.title} {...obj} />);
+  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   return (
     <>
       <div className="content__top">
@@ -110,8 +107,23 @@ export const Home = () => {
         <Sort value={sortType} onChangeSort={onChangeSort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+      {status === "error" ? (
+        <div className="cart cart--empty">
+          <h2>
+            Ошибка на сервере <icon>😔</icon>
+          </h2>
+          <p>
+            Вероятней всего наш сервер временно не работает
+            <br />
+            Для того, чтобы заказать пиццу, придется подождать.
+          </p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeletons : pizzas}
+          <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+        </div>
+      )}
     </>
   );
 };
