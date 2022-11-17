@@ -1,11 +1,25 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addItem, selectorItemsById } from "../../redux/slices/cartSlice";
+import {
+  addItem,
+  selectorItemsById,
+  TCartItem,
+} from "../../redux/slices/cartSlice";
 
 const typeNames = ["тонкое", "традиционное"];
 
-export const PizzaBlock = ({
+type PizzaBlockProps = {
+  id: string;
+  title: string;
+  price: number;
+  sizes: number[];
+  types: number[];
+  imageUrl: string;
+  rating: number;
+};
+
+export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
   title = "Пицца",
   price = 395,
@@ -22,13 +36,14 @@ export const PizzaBlock = ({
   const addedCount = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-    const item = {
+    const item: TCartItem = {
       id,
       title,
       price,
       imageUrl,
       type: typeNames[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
     dispatch(addItem(item));
   };
@@ -36,7 +51,7 @@ export const PizzaBlock = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <Link to={`/items/${id}`}>
+        <Link key={id} to={`/items/${id}`}>
           <img
             className="pizza-block__image induced"
             src={imageUrl}

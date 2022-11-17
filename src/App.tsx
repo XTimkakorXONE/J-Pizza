@@ -1,8 +1,7 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { Home } from "./pages/Home";
-import { LoadError } from "./pages/LoadError.jsx";
+import { LoadError } from "./pages/LoadError";
 import { Cart } from "./pages/Cart";
 import { FullPizza } from "./pages/FullPizza";
 import "./scss/app.scss";
