@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/Brando-Pizza/static/css/main.d02503cf.css",
-    "main.js": "/Brando-Pizza/static/js/main.6ea52064.js",
-    "Cart.js": "/Brando-Pizza/static/js/Cart.aabb6d00.chunk.js",
-    "FullPizza.js": "/Brando-Pizza/static/js/FullPizza.5e8a3639.chunk.js",
-    "static/media/empty-cart.png": "/Brando-Pizza/static/media/empty-cart.db905d1f4b063162f25b.png",
-    "static/media/pizza-logo.png": "/Brando-Pizza/static/media/pizza-logo.fe269495ed34935545ef.png",
-    "index.html": "/Brando-Pizza/index.html",
-    "main.d02503cf.css.map": "/Brando-Pizza/static/css/main.d02503cf.css.map",
-    "main.6ea52064.js.map": "/Brando-Pizza/static/js/main.6ea52064.js.map",
-    "Cart.aabb6d00.chunk.js.map": "/Brando-Pizza/static/js/Cart.aabb6d00.chunk.js.map",
-    "FullPizza.5e8a3639.chunk.js.map": "/Brando-Pizza/static/js/FullPizza.5e8a3639.chunk.js.map"
+    "main.css": "/J-Pizza/static/css/main.d02503cf.css",
+    "main.js": "/J-Pizza/static/js/main.bde1af22.js",
+    "Cart.js": "/J-Pizza/static/js/Cart.aabb6d00.chunk.js",
+    "FullPizza.js": "/J-Pizza/static/js/FullPizza.5e8a3639.chunk.js",
+    "static/media/empty-cart.png": "/J-Pizza/static/media/empty-cart.db905d1f4b063162f25b.png",
+    "static/media/pizza-logo.png": "/J-Pizza/static/media/pizza-logo.fe269495ed34935545ef.png",
+    "index.html": "/J-Pizza/index.html",
+    "main.d02503cf.css.map": "/J-Pizza/static/css/main.d02503cf.css.map",
+    "main.bde1af22.js.map": "/J-Pizza/static/js/main.bde1af22.js.map",
+    "Cart.aabb6d00.chunk.js.map": "/J-Pizza/static/js/Cart.aabb6d00.chunk.js.map",
+    "FullPizza.5e8a3639.chunk.js.map": "/J-Pizza/static/js/FullPizza.5e8a3639.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d02503cf.css",
-    "static/js/main.6ea52064.js"
+    "static/js/main.bde1af22.js"
   ]
 }
