@@ -1,6 +1,6 @@
 @import "variables";
 @import "libs/normalize";
-
+@import "macro-css";
 @import "components/all";
 
 body {
@@ -106,7 +106,7 @@ body {
 
     .content__title {
       display: flex;
-      align-items: center;
+
       font-size: 32px;
 
       svg {
@@ -207,6 +207,21 @@ body {
               display: none;
             }
           }
+          &--disabled {
+            opacity: 0.4;
+            cursor: auto;
+            border-color: #787878;
+
+            &:active {
+              transform: none;
+            }
+            &:hover {
+              background: transparent;
+            }
+            svg path {
+              fill: #787878;
+            }
+          }
         }
 
         b {
@@ -234,14 +249,14 @@ body {
         width: 4%;
 
         .button {
-          border-color: darken($color: $gray-line, $amount: 10);
+          border-color: darken($color: $gray-line, $amount: 20);
         }
 
         svg {
           transform: rotate(45deg);
 
           path {
-            fill: darken($color: $gray-line, $amount: 15);
+            fill: darken($color: $gray-line, $amount: 20);
           }
         }
 
@@ -253,8 +268,12 @@ body {
           }
           &:hover,
           &:active {
-            border-color: darken($color: $gray-line, $amount: 80);
-            background-color: darken($color: $gray-line, $amount: 80);
+            path {
+              fill: darken($color: $gray-line, $amount: 30);
+            }
+
+            border-color: darken($color: $gray-line, $amount: 30);
+            background-color: darken($color: rgb(255, 255, 255), $amount: 0);
           }
         }
       }

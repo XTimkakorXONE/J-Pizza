@@ -5,6 +5,12 @@
   text-align: center;
   margin-bottom: 65px;
 
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
   .pizza-block-wrapper {
     display: flex;
     justify-content: center;
@@ -14,7 +20,7 @@
     padding-left: 13px;
     padding-top: 10px;
     &:hover {
-      box-shadow: 0 0 5px 2px #d86902a2;
+      box-shadow: 0 0 5px 2px #e4710582;
       border-radius: 30px;
     }
   }
